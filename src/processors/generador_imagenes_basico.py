@@ -9,6 +9,7 @@ import requests
 import replicate
 from src.utils.utils import *
 from src.utils.replicate_utils import *
+from typing import Optional
 
 class GeneradorImagenes:
     """Clase básica para generar imágenes usando Replicate con imagen de referencia."""
@@ -141,3 +142,27 @@ class GeneradorImagenes:
 
         print(f"✅ Imagen guardada en: {ruta_final}")
         return ruta_final
+
+
+def generar_imagen_con_referencia(prompt: str,
+                         imagen_referencia: str,
+                         ruta_destino: Optional[str] = None,
+                         modelo: str = "google/nano-banana") -> str:
+    """
+    Genera una imagen rápidamente.
+
+    Args:
+        prompt: Descripción de la imagen
+        imagen_referencia: Ruta o URL de imagen de referencia
+        ruta_destino: Donde guardar (opcional, si no se da retorna URL)
+        modelo: Modelo a usar
+
+    Returns:
+        URL de la imagen generada o ruta del archivo si se descargó
+    """
+    generador = GeneradorImagenes(modelo)
+
+    if ruta_destino:
+        return generador.generar_y_descargar(prompt, imagen_referencia, ruta_destino)
+    else:
+        return generador.generar_imagen(prompt, imagen_referencia)
