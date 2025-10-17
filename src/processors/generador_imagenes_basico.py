@@ -144,10 +144,10 @@ class GeneradorImagenes:
         return ruta_final
 
 
-def generar_imagen_con_referencia(prompt: str,
-                         imagen_referencia: str,
-                         ruta_destino: Optional[str] = None,
-                         modelo: str = "google/nano-banana") -> str:
+def generar_imagen_con_referencia(modelo: Optional[str],
+                                  prompt: str,
+                                  imagen_referencia: str,
+                                  ruta_destino: Optional[str]) -> str:
     """
     Genera una imagen rápidamente.
 
