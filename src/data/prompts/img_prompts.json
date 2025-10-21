@@ -1,20 +1,55 @@
 {
   "ENVIRONMENTS": {
-    "urban": "In an urban environment",
-    "city": "In a city setting",
-    "street": "On a street",
-    "road": "On a road",
-    "outdoor": "In an outdoor setting",
-    "industrial": "In an industrial area",
-    "coastal": "Near the coast",
-    "mountain": "In a mountainous area",
-    "desert": "In a desert landscape",
-    "forest": "In a forest setting",
-    "park": "In a park",
-    "highway": "On a highway",
-    "downtown": "In a downtown area",
-    "suburban": "In a suburban area",
-    "rural": "In a rural setting"
+    "city": {
+      "street": "On a street",
+      "city": "In a city setting",
+      "urban": "In an urban environment",
+      "downtown": "In a downtown area",
+      "suburban": "In a suburban area",
+      "park": "In a park",
+      "highway": "On a highway",
+      "industrial": "In an industrial area",
+      "coastal": "Near the coast"
+    },
+    "offroad": {
+      "desert": "In a desert landscape",
+      "forest": "In a forest setting",
+      "mountain": "In a mountainous area",
+      "trail": "On a dirt trail",
+      "rural": "In a rural setting",
+      "countryside": "In the countryside",
+      "hills": "On rolling hills",
+      "canyon": "In a canyon"
+    },
+    "sport": {
+      "highway": "On a highway",
+      "race_track": "On a race track",
+      "mountain_road": "On a mountain road",
+      "coastal_road": "On a coastal road",
+      "city": "In a city setting",
+      "street": "On a street"
+    },
+    "touring": {
+      "highway": "On a highway",
+      "scenic_route": "On a scenic route",
+      "mountain_road": "On a mountain road",
+      "coastal_road": "On a coastal road",
+      "countryside": "In the countryside",
+      "rural": "In a rural setting"
+    },
+    "transport": {
+      "industrial": "In an industrial area",
+      "warehouse": "Near a warehouse",
+      "city": "In a city setting",
+      "street": "On a street",
+      "rural": "In a rural setting",
+      "port": "Near a port"
+    },
+    "transport_trimoto": {
+      "city": "In a city setting",
+      "street": "On a street",
+      "industrial": "In an industrial area"
+    }
   },
   "ACTIONS": {
     "parked_angle": "The motorcycle is parked upright, slightly angled toward the camera to highlight its design and metallic details.",
