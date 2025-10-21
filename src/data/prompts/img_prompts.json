@@ -64,8 +64,7 @@
     "city": {
       "default": "May include a Mexican rider wearing an open-face helmet, black leather jacket, and a pastel blue T-shirt",
       "rider_leather": "May include a Mexican rider wearing a leather jacket, black leather pants, and a black helmet",
-      "rider_casual": "May include a Mexican rider wearing a casual jacket, casual pants, and a casual helmet",
-      "rider_work": "May include a Mexican rider wearing a work jacket, work pants, and a work helmet"
+      "rider_casual": "May include a Mexican rider wearing a casual jacket, casual pants, and a casual helmet"
     },
     "offroad": {
       "default": "May include a Mexican rider wearing an adventure or motocross helmet with a visor, protective off-road jacket with armored pads, sturdy riding boots, and gloves, all in earthy or bright colors suitable for rugged terrain"
