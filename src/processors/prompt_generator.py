@@ -6,7 +6,7 @@ class PromptGenerator:
         city: str,
         environment: str,
         action: str,
-        rider_block: str = "",
+        rider: str = "",
         lighting_style: str = "",
         extras: str = "",
         composition: str = "",
@@ -30,7 +30,7 @@ class PromptGenerator:
             environment.strip(),
             f"in {city.strip()}" if city.strip() else "",
             # 4) Acciones y si existe conductor
-            action.strip() + (f" {rider_block.strip()}" if rider_block else ""),
+            action.strip() + (f" {rider.strip()}" if rider else ""),
             # 5) Composición y distancia de cámara
             composition.strip() if composition else "positioned using rule of thirds, off-center composition for natural look",
             camera_distance.strip() if camera_distance else "medium distance shot",
