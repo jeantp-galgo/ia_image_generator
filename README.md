@@ -5,9 +5,13 @@ Sistema especializado para generar imágenes de motocicletas usando inteligencia
 ## Características
 
 - ✅ Generación de imágenes de motocicletas usando IA (modelo configurable)
-- ✅ Sistema de prompts estructurados para motocicletas
+- ✅ Sistema de prompts estructurados por tipo de motocicleta
+- ✅ Entornos específicos y apropiados para cada tipo (ciudad, offroad, sport, touring, transport)
+- ✅ Composición natural con regla de tercios (no centrada)
 - ✅ Soporte para imagen de referencia para mantener consistencia visual
 - ✅ Configuración modular de entornos, acciones, iluminación y estilos
+- ✅ Generación aleatoria con variedad automática
+- ✅ Control de ciudad/ubicación geográfica
 - ✅ Descarga automática de imágenes generadas
 - ✅ Manejo de errores robusto
 - ✅ Estructura de proyecto organizada y escalable
@@ -37,7 +41,9 @@ generar_imagenes/
 │   │   └── prompt_generator.py           # Constructor de prompts
 │   ├── utils/
 │   │   ├── utils.py                      # Utilidades generales
-│   │   └── replicate_utils.py            # Utilidades de Replicate
+│   │   ├── replicate_utils.py            # Utilidades de Replicate
+│   │   ├── variety_generator.py          # Generador de variedad
+│   │   └── random_prompt_generator.py    # Generador de prompts aleatorios
 │   ├── data/
 │   │   ├── prompts/
 │   │   │   └── img_prompts.json          # Configuración de prompts
@@ -66,13 +72,15 @@ with open("src/data/prompts/img_prompts.json", "r") as f:
 # Definir producto
 PRODUCT_BRAND = "Yamaha"
 PRODUCT_MODEL = "MT 15"
+CITY = "Ciudad de México"
 
 # Generar prompt estructurado
 prompt_imagen = PromptGenerator.build_motorcycle_prompt(
     model=f"{PRODUCT_BRAND} {PRODUCT_MODEL}",
-    environment=prompts_config["ENVIRONMENTS"]["city_moving"],
-    action=prompts_config["ACTIONS"]["riding_confident"],
-    rider_block=prompts_config["RIDERS"]["default"],
+    city=CITY,
+    environment=prompts_config["ENVIRONMENTS"]["city"]["street"],
+    action=prompts_config["ACTIONS"]["default"]["riding_confident"],
+    rider_block=prompts_config["RIDERS"]["city"]["default"],
     lighting_style=prompts_config["LIGHTING"]["night_cinematic"],
     extras=prompts_config["STYLE_EXTRAS"]["motion_blur"]
 )
@@ -85,7 +93,27 @@ url_imagen = generar_imagen_con_referencia(
 )
 ```
 
-### Método 2: Función Simple (Uso Básico)
+### Método 2: Generación Aleatoria Automática
+```python
+from src.utils.random_prompt_generator import generate_random_prompt
+from src.processors.generador_imagenes_basico import generar_imagen_con_referencia
+
+# Generar prompt aleatorio basado en tipo de motocicleta
+prompt_aleatorio = generate_random_prompt(
+    motorcycle_type="Naked",  # Tipo de motocicleta
+    city="Ciudad de México",
+    model="Yamaha MT 15"
+)
+
+# Generar imagen
+url_imagen = generar_imagen_con_referencia(
+    prompt=prompt_aleatorio,
+    imagen_referencia="ruta/a/imagen_referencia.jpg",
+    ruta_destino="imagen_generada.png"
+)
+```
+
+### Método 3: Función Simple (Uso Básico)
 ```python
 from src.processors.generador_imagenes_basico import generar_imagen_con_referencia
 
@@ -101,21 +129,64 @@ url_imagen = generar_imagen_con_referencia(
 
 El sistema utiliza un archivo JSON (`src/data/prompts/img_prompts.json`) para configurar los diferentes elementos del prompt:
 
-### Entornos Disponibles
-- `mex_street`: Calle típica mexicana
-- `city_static`: Avenida urbana estática
-- `city_moving`: Calle urbana en movimiento
-- `scenic_road`: Carretera escénica
-- `industrial`: Distrito industrial
-- `beach`: Carretera costera
-- `night_rain`: Calle nocturna con lluvia
-- `offroad`: Sendero todoterreno
+### Tipos de Motocicletas Soportados
+- **Ciudad**: Naked, Trabajo, Motoneta, Café Racer, Semiautomática, Chopper, Trimoto, Eléctrica
+- **Offroad**: Doble Propósito, Enduro, Cuatrimoto, ATV
+- **Sport**: Deportiva
+- **Touring**: Touring
+- **Transport**: Carga, Carguero
+
+### Entornos por Tipo de Motocicleta
+
+#### Entornos de Ciudad
+- `street`: Calle típica de ciudad
+- `downtown`: Centro con tiendas y cafés
+- `suburban`: Área residencial suburbana
+- `park`: Parque de la ciudad
+- `commercial`: Distrito comercial
+- `residential`: Barrio residencial
+- `plaza`: Plaza o plaza de la ciudad
+- `boulevard`: Bulevar con árboles
+- `garage`: Garaje o showroom moderno
+
+#### Entornos Offroad
+- `desert`: Paisaje desértico
+- `forest`: Entorno forestal
+- `mountain`: Área montañosa
+- `trail`: Sendero de tierra
+- `rural`: Entorno rural
+- `countryside`: Campo
+- `hills`: Colinas onduladas
+- `canyon`: Cañón
+
+#### Entornos Deportivos
+- `race_track`: Pista profesional de carreras
+- `city_highway`: Autopista urbana moderna
+- `urban_street`: Calle urbana con arquitectura moderna
+- `garage`: Garaje o showroom moderno
+- `city_center`: Centro de ciudad con edificios contemporáneos
+- `asphalt_road`: Carretera de asfalto suave
 
 ### Acciones Disponibles
 - `parked_angle`: Estacionada en ángulo
 - `riding_confident`: Conduciendo con confianza
 - `closeup_static`: Primer plano estático
 - `offroad_action`: Acción todoterreno
+
+### Conductores por Tipo
+- **Ciudad**: default, rider_leather, rider_casual
+- **Offroad**: default
+- **Sport**: default
+- **Touring**: default
+- **Transport**: default, transport_trimoto
+
+### Composición
+- `rule_of_thirds`: Regla de tercios, composición descentrada
+- `dynamic_angle`: Ángulo dinámico con sensación de movimiento
+- `environmental`: Composición ambiental equilibrada
+- `cinematic`: Composición cinematográfica
+- `lifestyle`: Fotografía de estilo de vida natural
+- `editorial`: Composición editorial
 
 ### Estilos de Iluminación
 - `day_warm`: Luz diurna cálida
@@ -132,11 +203,21 @@ El sistema utiliza un archivo JSON (`src/data/prompts/img_prompts.json`) para co
 
 ### PromptGenerator.build_motorcycle_prompt()
 - `model`: Marca y modelo de la motocicleta (ej: "Yamaha MT 15")
+- `city`: Ciudad donde se ubica la imagen (ej: "Ciudad de México")
 - `environment`: Entorno desde img_prompts.json
 - `action`: Acción desde img_prompts.json
 - `rider_block`: Descripción del conductor (opcional)
 - `lighting_style`: Estilo de iluminación (opcional)
 - `extras`: Extras de estilo (opcional)
+- `composition`: Composición (opcional, por defecto: regla de tercios)
+- `camera_distance`: Distancia de cámara (opcional, por defecto: medium)
+
+### generate_random_prompt()
+- `motorcycle_type`: Tipo de motocicleta (ej: "Naked", "Deportiva", "Doble Propósito")
+- `city`: Ciudad donde se ubica la imagen
+- `model`: Modelo de la motocicleta
+- `rider_block`: Descripción del conductor (opcional)
+- `prompts_config_path`: Ruta al archivo de configuración
 
 ### generar_imagen_con_referencia()
 - `prompt`: Prompt generado o manual
@@ -171,23 +252,6 @@ Professional realistic photograph of a Honda CBR 250R motorcycle, keeping its or
 Professional realistic photograph of a Kawasaki KLX 150 motorcycle, keeping its original shape and design. Placed on a rugged dirt trail with rocks, loose soil, and patches of mud, surrounded by wild vegetation and open landscape. May include a Mexican rider wearing an adventure or motocross helmet with a visor, protective off-road jacket with armored pads, sturdy riding boots, and gloves. The motorcycle is navigating rugged terrain, with dust or mud thrown from the tires, suspension visibly compressed, and the rider in a dynamic posture. Soft overcast daylight, diffused shadows, balanced contrast and even surface reflections.
 ```
 
-## Manejo de Errores
-
-El código incluye manejo robusto de errores para:
-- Token de API inválido
-- Imagen de referencia no encontrada
-- Errores de red
-- Fallos en la generación
-- Problemas de descarga
-- Rutas de archivos incorrectas
-
-## Flujo de Trabajo Recomendado
-
-1. **Preparar imagen de referencia**: Coloca tu imagen en `src/data/img/input/`
-2. **Configurar prompts**: Edita `src/data/prompts/img_prompts.json` si necesitas personalizar
-3. **Ejecutar notebook**: Usa `src/notebooks/test/app.ipynb` para generar imágenes
-4. **Revisar resultados**: Las imágenes se guardan en `src/data/img/output/`
-
 ## Notas
 
 - La imagen de referencia puede ser una ruta local o una URL
@@ -201,28 +265,26 @@ El código incluye manejo robusto de errores para:
 ```python
 import json
 import os
-from src.processors.prompt_generator import PromptGenerator
+from src.utils.random_prompt_generator import generate_random_prompt
 from src.processors.generador_imagenes_basico import generar_imagen_con_referencia
 
 # Configuración
 API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
 PRODUCT_BRAND = "Yamaha"
 PRODUCT_MODEL = "MT 15"
-
-# Cargar configuración de prompts
-with open("src/data/prompts/img_prompts.json", "r") as f:
-    prompts_config = json.load(f)
+MOTORCYCLE_TYPE = "Naked"  # Tipo de motocicleta
+CITY = "Ciudad de México"
 
 try:
-    # Generar prompt estructurado
-    prompt_imagen = PromptGenerator.build_motorcycle_prompt(
-        model=f"{PRODUCT_BRAND} {PRODUCT_MODEL}",
-        environment=prompts_config["ENVIRONMENTS"]["city_moving"],
-        action=prompts_config["ACTIONS"]["riding_confident"],
-        rider_block=prompts_config["RIDERS"]["default"],
-        lighting_style=prompts_config["LIGHTING"]["night_cinematic"],
-        extras=prompts_config["STYLE_EXTRAS"]["motion_blur"]
+    # Generar prompt aleatorio basado en tipo de motocicleta
+    prompt_imagen = generate_random_prompt(
+        motorcycle_type=MOTORCYCLE_TYPE,
+        city=CITY,
+        model=f"{PRODUCT_BRAND} {PRODUCT_MODEL}"
     )
+
+    print("🎨 Prompt generado:")
+    print(prompt_imagen)
 
     # Generar y descargar imagen
     ruta_resultado = generar_imagen_con_referencia(
@@ -236,3 +298,25 @@ try:
 except Exception as e:
     print(f"❌ Error: {e}")
 ```
+
+## Características Avanzadas
+
+### Generación con Variedad
+El sistema incluye elementos de variedad automática:
+- **Clima**: sunny day, cloudy day, golden hour, sunset, sunrise, rainy day, foggy morning
+- **Tiempo**: during the day, at night, in the evening, in the morning, during twilight
+- **Atmósfera**: natural lighting, dramatic lighting, soft lighting, vibrant colors, muted tones
+- **Fondo**: varied background elements, architectural details, natural elements
+
+### Composición Natural
+- **Regla de tercios**: Posicionamiento descentrado para composición natural
+- **Ángulos dinámicos**: Sensación de movimiento y dinamismo
+- **Composición ambiental**: Equilibrio entre motocicleta y entorno
+- **Estilo cinematográfico**: Composiciones más profesionales y atractivas
+
+### Entornos Específicos por Tipo
+- **Motocicletas deportivas**: Pistas de carreras, autopistas urbanas, calles modernas
+- **Motocicletas de ciudad**: Calles típicas, centros comerciales, parques, garajes
+- **Motocicletas offroad**: Desiertos, bosques, montañas, senderos de tierra
+- **Motocicletas touring**: Carreteras escénicas, rutas de montaña, carreteras costeras
+- **Motocicletas de transporte**: Áreas industriales, almacenes, puertos
