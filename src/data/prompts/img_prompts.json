@@ -46,7 +46,6 @@
       "port": "Near a port"
     },
     "transport_trimoto": {
-      "city": "In a city setting",
       "street": "On a street",
       "industrial": "In an industrial area"
     }
@@ -71,6 +70,19 @@
     "bokeh": "Background slightly blurred (soft bokeh) to emphasize the motorcycle in the foreground.",
     "motion_blur": "Subtle motion blur on the background and wheels to convey speed and movement.",
     "advertising": "Advertising editorial style, cinematic composition, vivid colors, and detailed textures of the environment."
+  },
+  "COMPOSITION": {
+    "full_shot": "Full shot showing the entire motorcycle with adequate background space, motorcycle occupies about 60-70% of the frame",
+    "medium_shot": "Medium shot with motorcycle in center, occupying about 50-60% of the frame, good background context",
+    "close_up": "Close-up shot focusing on motorcycle details, motorcycle occupies 80-90% of the frame",
+    "environmental": "Environmental shot where motorcycle is prominent but not dominating, motorcycle occupies about 40-50% of the frame with rich background context",
+    "balanced": "Balanced composition with motorcycle as main subject, occupying about 50-60% of the frame, professional photography composition"
+  },
+  "CAMERA_DISTANCE": {
+    "wide": "Wide angle shot showing full motorcycle with surrounding environment",
+    "medium": "Medium distance shot with good balance between motorcycle and background",
+    "close": "Close distance shot emphasizing motorcycle details",
+    "standard": "Standard photography distance, professional composition"
   },
   "VARIETY_ELEMENTS": {
     "weather": [

@@ -81,6 +81,16 @@ class randomPromptGenerator:
         style_key = random.choice(list(self.config["STYLE_EXTRAS"].keys()))
         return self.config["STYLE_EXTRAS"][style_key]
 
+    def get_random_composition(self) -> str:
+        """Obtiene una composición aleatoria."""
+        composition_key = random.choice(list(self.config["COMPOSITION"].keys()))
+        return self.config["COMPOSITION"][composition_key]
+
+    def get_random_camera_distance(self) -> str:
+        """Obtiene una distancia de cámara aleatoria."""
+        camera_distance_key = random.choice(list(self.config["CAMERA_DISTANCE"].keys()))
+        return self.config["CAMERA_DISTANCE"][camera_distance_key]
+
     def generate_variety_elements(self, num_elements: int = 2) -> List[str]:
         """
         Genera una lista de elementos aleatorios para añadir variedad.
@@ -167,7 +177,9 @@ def generate_random_prompt(
         action=random_prompt_generator.get_random_action(),
         rider_block=rider_block,
         lighting_style=random_prompt_generator.get_random_lighting(),
-        extras=random_prompt_generator.get_random_style_extra()
+        extras=random_prompt_generator.get_random_style_extra(),
+        composition=random_prompt_generator.get_random_composition(),
+        camera_distance=random_prompt_generator.get_random_camera_distance()
     )
 
     # Añadir variedad
