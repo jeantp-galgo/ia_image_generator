@@ -34,9 +34,14 @@ class randomPromptGenerator:
         """Obtiene un elemento de variedad de fondo aleatorio."""
         return random.choice(self.config["VARIETY_ELEMENTS"]["background_variety"])
 
-    def get_random_rider(self) -> str:
+    def get_random_rider(self, img_count: int) -> str:
         """Obtiene un elemento de Rider aleatorio dependiendo del tipo de moto."""
-        print("La moto es de tipo: ", self.motorcycle_type)
+        # print("La moto es de tipo: ", self.motorcycle_type)
+        print("img_count: ", img_count)
+
+        if img_count == 1:
+            return ""
+
         if self.motorcycle_type in self.motorcycles_city:
             rider_dict = self.config["RIDERS"]["city"]
             rider_key = random.choice(list(rider_dict.keys()))
@@ -68,7 +73,7 @@ class randomPromptGenerator:
 
     def get_random_action(self) -> str:
         """Obtiene una acción aleatoria."""
-        print("La moto es de tipo: ", self.motorcycle_type)
+        # print("La moto es de tipo: ", self.motorcycle_type)
         if self.motorcycle_type in self.motorcycles_offroad:
             action_dict = self.config["ACTIONS"]["offroad"]
             action_key = random.choice(list(action_dict.keys()))
@@ -84,7 +89,7 @@ class randomPromptGenerator:
 
     def get_random_environment(self) -> str:
         """Obtiene un entorno aleatorio según el tipo de moto."""
-        print("La moto es de tipo: ", self.motorcycle_type)
+        # print("La moto es de tipo: ", self.motorcycle_type)
         if self.motorcycle_type in self.motorcycles_offroad:
             env_dict = self.config["ENVIRONMENTS"]["offroad"]
             env_key = random.choice(list(env_dict.keys()))
@@ -197,7 +202,8 @@ def generate_random_prompt(
     motorcycle_type: str,
     city: str,
     model: str,
-    prompts_config_path: str = "./src/data/prompts/img_prompts.json"
+    img_count: int = 0,
+    prompts_config_path: str = "./src/data/prompts/img_prompts.json",
 ) -> str:
     """
     Genera un prompt aleatorio para una motocicleta.
@@ -221,7 +227,7 @@ def generate_random_prompt(
         city=city,
         environment= random_prompt_generator.get_random_environment(),
         action=random_prompt_generator.get_random_action(),
-        rider=random_prompt_generator.get_random_rider(),
+        rider=random_prompt_generator.get_random_rider(img_count),
         lighting_style=random_prompt_generator.get_random_lighting(),
         extras=random_prompt_generator.get_random_style_extra(),
         composition=random_prompt_generator.get_random_composition(),
