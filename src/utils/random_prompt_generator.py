@@ -41,6 +41,7 @@ class randomPromptGenerator:
 
     def get_random_environment(self) -> str:
         """Obtiene un entorno aleatorio según el tipo de moto."""
+        print("La moto es de tipo: ", self.motorcycle_type)
         if self.motorcycle_type in self.motorcycles_offroad:
             env_dict = self.config["ENVIRONMENTS"]["offroad"]
             env_key = random.choice(list(env_dict.keys()))
