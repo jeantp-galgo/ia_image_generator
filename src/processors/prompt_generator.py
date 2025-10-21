@@ -7,7 +7,9 @@ class PromptGenerator:
         action: str,
         rider_block: str = "",
         lighting_style: str = "",
-        extras: str = ""
+        extras: str = "",
+        composition: str = "",
+        camera_distance: str = ""
     ) -> str:
         """
         Estructura:
@@ -29,6 +31,8 @@ class PromptGenerator:
             # 5) Estilo fotográfico
             lighting_style.strip() if lighting_style else "",
             extras.strip() if extras else "",
+            composition.strip() if composition else "",
+            camera_distance.strip() if camera_distance else "",
         ]
         # Une y limpia espacios dobles
         prompt = " ".join(p for p in parts if p).replace("  ", " ").strip()
