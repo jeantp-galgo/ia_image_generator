@@ -83,8 +83,8 @@ class randomPromptGenerator:
 
     def get_random_composition(self) -> str:
         """Obtiene una composición aleatoria."""
-        composition_key = random.choice(list(self.config["COMPOSITION"].keys()))
-        return self.config["COMPOSITION"][composition_key]
+        comp_key = random.choice(list(self.config["COMPOSITION"].keys()))
+        return self.config["COMPOSITION"][comp_key]
 
     def get_random_camera_distance(self) -> str:
         """Obtiene una distancia de cámara aleatoria."""
@@ -141,6 +141,7 @@ class randomPromptGenerator:
             "environment": self.get_random_environment(),
             "lighting": self.get_random_lighting(),
             "style_extra": self.get_random_style_extra(),
+            "composition": self.get_random_composition(),
             "weather": self.get_random_weather(),
             "time": self.get_random_time(),
             "atmosphere": self.get_random_atmosphere(),
@@ -150,6 +151,7 @@ class randomPromptGenerator:
 # Función helper para uso rápido
 def generate_random_prompt(
     motorcycle_type: str,
+    city: str,
     model: str,
     rider_block: str = "",
     prompts_config_path: str = "./src/data/prompts/img_prompts.json"
@@ -173,6 +175,7 @@ def generate_random_prompt(
     # Generar prompt base
     base_prompt = PromptGenerator.build_motorcycle_prompt(
         model=model,
+        city=city,
         environment= random_prompt_generator.get_random_environment(),
         action=random_prompt_generator.get_random_action(),
         rider_block=rider_block,
