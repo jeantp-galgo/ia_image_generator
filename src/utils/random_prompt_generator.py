@@ -34,10 +34,53 @@ class randomPromptGenerator:
         """Obtiene un elemento de variedad de fondo aleatorio."""
         return random.choice(self.config["VARIETY_ELEMENTS"]["background_variety"])
 
+    def get_random_rider(self) -> str:
+        """Obtiene un elemento de Rider aleatorio dependiendo del tipo de moto."""
+        print("La moto es de tipo: ", self.motorcycle_type)
+        if self.motorcycle_type in self.motorcycles_city:
+            rider_dict = self.config["RIDERS"]["city"]
+            rider_key = random.choice(list(rider_dict.keys()))
+            return rider_dict[rider_key]
+        elif self.motorcycle_type in self.motorcycles_offroad:
+            rider_dict = self.config["RIDERS"]["offroad"]
+            rider_key = random.choice(list(rider_dict.keys()))
+            return rider_dict[rider_key]
+        elif self.motorcycle_type in self.motorcycles_sport:
+            rider_dict = self.config["RIDERS"]["sport"]
+            rider_key = random.choice(list(rider_dict.keys()))
+            return rider_dict[rider_key]
+        elif self.motorcycle_type in self.motorcycles_tour:
+            rider_dict = self.config["RIDERS"]["touring"]
+            rider_key = random.choice(list(rider_dict.keys()))
+            return rider_dict[rider_key]
+        elif self.motorcycle_type in self.motorcycles_transport:
+            rider_dict = self.config["RIDERS"]["transport"]
+            rider_key = random.choice(list(rider_dict.keys()))
+            return rider_dict[rider_key]
+        elif self.motorcycle_type in self.motorcycles_transport_trimoto:
+            rider_dict = self.config["RIDERS"]["transport_trimoto"]
+            rider_key = random.choice(list(rider_dict.keys()))
+            return rider_dict[rider_key]
+        else:
+            rider_dict = self.config["RIDERS"]["default"]
+            rider_key = random.choice(list(rider_dict.keys()))
+            return rider_dict[rider_key]
+
     def get_random_action(self) -> str:
         """Obtiene una acción aleatoria."""
-        action_key = random.choice(list(self.config["ACTIONS"].keys()))
-        return self.config["ACTIONS"][action_key]
+        print("La moto es de tipo: ", self.motorcycle_type)
+        if self.motorcycle_type in self.motorcycles_offroad:
+            action_dict = self.config["ACTIONS"]["offroad"]
+            action_key = random.choice(list(action_dict.keys()))
+            return action_dict[action_key]
+        elif self.motorcycle_type in self.motorcycles_city:
+            action_dict = self.config["ACTIONS"]["default"]
+            action_key = random.choice(list(action_dict.keys()))
+            return action_dict[action_key]
+        else:
+            action_dict = self.config["ACTIONS"]["default"]
+            action_key = random.choice(list(action_dict.keys()))
+            return action_dict[action_key]
 
     def get_random_environment(self) -> str:
         """Obtiene un entorno aleatorio según el tipo de moto."""
@@ -143,10 +186,10 @@ class randomPromptGenerator:
             "lighting": self.get_random_lighting(),
             "style_extra": self.get_random_style_extra(),
             "composition": self.get_random_composition(),
+            "rider": self.get_random_rider(),
             "weather": self.get_random_weather(),
             "time": self.get_random_time(),
             "atmosphere": self.get_random_atmosphere(),
-            "background_variety": self.get_random_background_variety()
         }
 
 # Función helper para uso rápido
@@ -154,7 +197,6 @@ def generate_random_prompt(
     motorcycle_type: str,
     city: str,
     model: str,
-    rider_block: str = "",
     prompts_config_path: str = "./src/data/prompts/img_prompts.json"
 ) -> str:
     """
@@ -179,7 +221,7 @@ def generate_random_prompt(
         city=city,
         environment= random_prompt_generator.get_random_environment(),
         action=random_prompt_generator.get_random_action(),
-        rider_block=rider_block,
+        rider=random_prompt_generator.get_random_rider(),
         lighting_style=random_prompt_generator.get_random_lighting(),
         extras=random_prompt_generator.get_random_style_extra(),
         composition=random_prompt_generator.get_random_composition(),
