@@ -1,15 +1,14 @@
 {
   "ENVIRONMENTS": {
     "city": {
-      "street": "On a street",
-      "city": "In a city setting",
-      "urban": "In an urban environment",
-      "downtown": "In a downtown area",
-      "suburban": "In a suburban area",
-      "park": "In a park",
-      "highway": "On a highway",
-      "industrial": "In an industrial area",
-      "coastal": "Near the coast"
+      "street": "On a typical city street",
+      "downtown": "In a downtown area with shops and cafes",
+      "suburban": "In a suburban residential area",
+      "park": "In a city park",
+      "commercial": "In a commercial district",
+      "residential": "In a residential neighborhood",
+      "plaza": "In a city plaza or square",
+      "boulevard": "On a city boulevard with trees"
     },
     "offroad": {
       "desert": "In a desert landscape",
@@ -22,12 +21,12 @@
       "canyon": "In a canyon"
     },
     "sport": {
-      "highway": "On a highway",
-      "race_track": "On a race track",
-      "mountain_road": "On a mountain road",
-      "coastal_road": "On a coastal road",
-      "city": "In a city setting",
-      "street": "On a street"
+      "race_track": "On a professional race track",
+      "city_highway": "On a modern city highway",
+      "urban_street": "On an urban street with modern architecture",
+      "garage": "In a modern motorcycle garage or showroom",
+      "city_center": "In a city center with contemporary buildings",
+      "asphalt_road": "On a smooth asphalt road"
     },
     "touring": {
       "highway": "On a highway",
@@ -72,11 +71,12 @@
     "advertising": "Advertising editorial style, cinematic composition, vivid colors, and detailed textures of the environment."
   },
   "COMPOSITION": {
-    "full_shot": "Full shot showing the entire motorcycle with adequate background space, motorcycle occupies about 60-70% of the frame",
-    "medium_shot": "Medium shot with motorcycle in center, occupying about 50-60% of the frame, good background context",
-    "close_up": "Close-up shot focusing on motorcycle details, motorcycle occupies 80-90% of the frame",
-    "environmental": "Environmental shot where motorcycle is prominent but not dominating, motorcycle occupies about 40-50% of the frame with rich background context",
-    "balanced": "Balanced composition with motorcycle as main subject, occupying about 50-60% of the frame, professional photography composition"
+    "rule_of_thirds": "positioned using rule of thirds, off-center composition for natural look",
+    "dynamic_angle": "positioned at dynamic angle, slightly off-center with movement feel",
+    "environmental": "environmental composition where motorcycle is prominent but not dominating, balanced with surroundings",
+    "cinematic": "cinematic composition with motorcycle in foreground, off-center positioning",
+    "lifestyle": "lifestyle photography composition, natural and unposed positioning",
+    "editorial": "editorial style composition, motorcycle positioned for visual interest and balance"
   },
   "CAMERA_DISTANCE": {
     "wide": "Wide angle shot showing full motorcycle with surrounding environment",
