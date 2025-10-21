@@ -8,7 +8,8 @@
       "commercial": "In a commercial district",
       "residential": "In a residential neighborhood",
       "plaza": "In a city plaza or square",
-      "boulevard": "On a city boulevard with trees"
+      "boulevard": "On a city boulevard with trees",
+      "garage": "In a modern motorcycle garage or showroom"
     },
     "offroad": {
       "desert": "In a desert landscape",
