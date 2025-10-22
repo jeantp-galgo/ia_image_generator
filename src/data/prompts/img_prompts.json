@@ -120,9 +120,18 @@
     "overcast_soft": "Soft overcast daylight, diffused shadows, balanced contrast and even surface reflections."
   },
   "STYLE_EXTRAS": {
-    "bokeh": "Background slightly blurred (soft bokeh) to emphasize the motorcycle in the foreground.",
-    "motion_blur": "Subtle motion blur on the background and wheels to convey speed and movement.",
-    "advertising": "Advertising editorial style, cinematic composition, vivid colors, and detailed textures of the environment."
+    "static": {
+      "bokeh": "Background slightly blurred (soft bokeh) to emphasize the motorcycle in the foreground.",
+      "advertising": "Advertising editorial style, cinematic composition, vivid colors, and detailed textures of the environment.",
+      "clean": "Clean, minimalist style with sharp focus and professional lighting.",
+      "lifestyle": "Lifestyle photography style, natural lighting, relaxed composition."
+    },
+    "dynamic": {
+      "motion_blur": "Subtle motion blur on the background and wheels to convey speed and movement.",
+      "speed_lines": "Dynamic speed lines and motion trails to emphasize velocity.",
+      "action": "High-energy action photography with dramatic angles and movement.",
+      "racing": "Racing photography style with dynamic composition and speed effects."
+    }
   },
   "COMPOSITION": {
     "rule_of_thirds": "positioned using rule of thirds, off-center composition for natural look",
