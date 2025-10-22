@@ -36,13 +36,11 @@ class randomPromptGenerator:
 
     def get_random_rider(self, img_count: int) -> str:
         """Obtiene un elemento de Rider aleatorio dependiendo del tipo de moto."""
-        # print("La moto es de tipo: ", self.motorcycle_type)
-        # print("img_count: ", img_count)
 
-        # 30% de probabilidad de no tener conductor (aleatorio)
-        if random.random() < 0.3:
-            print("No hay conductor")
-            return ""
+        # Si el contador de imágenes es mayor a 0.7, entonces retornará un conductor aleatorio
+        if img_count >= 1:
+            if random.random() > 0.4:
+                return ""
 
         if self.motorcycle_type in self.motorcycles_city:
             rider_dict = self.config["RIDERS"]["city"]
