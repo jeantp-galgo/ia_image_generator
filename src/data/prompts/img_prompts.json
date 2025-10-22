@@ -50,16 +50,6 @@
       "industrial": "In an industrial area"
     }
   },
-  "ACTIONS": {
-    "default": {
-      "parked_angle": "The motorcycle is parked upright, slightly angled toward the camera to highlight its design and metallic details.",
-      "riding_confident": "Riding confidently with a relaxed posture, slight lean forward, wheels in motion.",
-      "closeup_static": "Parked for a three-quarter view close-up focusing on the tank, headlight, and front suspension."
-    },
-    "offroad": {
-      "offroad_action": "The motorcycle is navigating rugged terrain, with dust or mud thrown from the tires, suspension visibly compressed, and the rider in a dynamic posture as if tackling an obstacle or incline."
-    }
-  },
   "RIDERS": {
     "city": {
       "default": "May include a Mexican rider wearing an open-face helmet, black leather jacket, and a pastel blue T-shirt",
@@ -82,6 +72,16 @@
       "default": "May include a Mexican rider wearing a transport trimoto jacket, transport trimoto pants, and a transport trimoto helmet"
     }
     },
+  "ACTIONS": {
+    "default": {
+      "parked_angle": "The motorcycle is parked upright, slightly angled toward the camera to highlight its design and metallic details.",
+      "riding_confident": "Riding confidently with a relaxed posture, slight lean forward, wheels in motion.",
+      "closeup_static": "Parked for a three-quarter view close-up focusing on the tank, headlight, and front suspension."
+    },
+    "offroad": {
+      "offroad_action": "The motorcycle is navigating rugged terrain, with dust or mud thrown from the tires, suspension visibly compressed, and the rider in a dynamic posture as if tackling an obstacle or incline."
+    }
+  },
   "LIGHTING": {
     "day_warm": "Warm daylight illumination, soft shadows, and natural reflections on the metallic tank.",
     "golden_hour": "Golden hour lighting with long soft shadows and warm highlights emphasizing contours.",
