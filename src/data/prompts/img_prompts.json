@@ -71,15 +71,46 @@
     "transport_trimoto": {
       "default": "May include a Mexican rider wearing a transport trimoto jacket, transport trimoto pants, and a transport trimoto helmet"
     }
-    },
+  },
   "ACTIONS": {
-    "default": {
-      "parked_angle": "The motorcycle is parked upright, slightly angled toward the camera to highlight its design and metallic details.",
-      "riding_confident": "Riding confidently with a relaxed posture, slight lean forward, wheels in motion.",
-      "closeup_static": "Parked for a three-quarter view close-up focusing on the tank, headlight, and front suspension."
+    "without_rider": {
+      "parked": "The motorcycle is parked",
+      "stationary": "The motorcycle is stationary",
+      "displayed": "The motorcycle is displayed",
+      "ready": "The motorcycle is ready and waiting"
     },
-    "offroad": {
-      "offroad_action": "The motorcycle is navigating rugged terrain, with dust or mud thrown from the tires, suspension visibly compressed, and the rider in a dynamic posture as if tackling an obstacle or incline."
+    "with_rider": {
+      "city": {
+        "riding_street": "The motorcycle is riding through city streets",
+        "riding_traffic": "The motorcycle is navigating through traffic",
+        "riding_urban": "The motorcycle is riding through urban areas"
+      },
+      "offroad": {
+        "jumping": "The motorcycle is jumping over obstacles",
+        "sliding": "The motorcycle is sliding through dirt",
+        "climbing": "The motorcycle is climbing a hill",
+        "exploring": "The motorcycle is exploring rough terrain"
+      },
+      "sport": {
+        "racing": "The motorcycle is racing on a track",
+        "leaning": "The motorcycle is leaning into a curve",
+        "accelerating": "The motorcycle is accelerating"
+      },
+      "touring": {
+        "cruising": "The motorcycle is cruising on a highway",
+        "touring": "The motorcycle is touring scenic routes",
+        "long_distance": "The motorcycle is on a long-distance journey"
+      },
+      "transport": {
+        "delivering": "The motorcycle is delivering goods",
+        "working": "The motorcycle is being used for work",
+        "carrying": "The motorcycle is carrying cargo"
+      },
+      "transport_trimoto": {
+        "delivering": "The motorcycle is delivering goods",
+        "working": "The motorcycle is being used for work",
+        "carrying": "The motorcycle is carrying cargo"
+      }
     }
   },
   "LIGHTING": {
