@@ -74,10 +74,10 @@
   },
   "ACTIONS": {
     "without_rider": {
-      "parked": "The motorcycle is parked",
-      "stationary": "The motorcycle is stationary",
-      "displayed": "The motorcycle is displayed",
-      "ready": "The motorcycle is ready and waiting"
+      "parked": "The motorcycle is parked on the side of the road or path, not in the center",
+      "stationary": "The motorcycle is stationary, positioned off-center with environmental elements",
+      "displayed": "The motorcycle is displayed off-center, with environmental elements creating balance",
+      "ready": "The motorcycle is ready and waiting, positioned on the side, not in the center"
     },
     "with_rider": {
       "city": {
@@ -134,12 +134,17 @@
     }
   },
   "COMPOSITION": {
-    "rule_of_thirds": "motorcycle positioned in the right third of the frame, NOT centered, following rule of thirds for natural composition",
-    "left_third": "motorcycle positioned in the left third of the frame, NOT centered, with environmental elements balancing the right side",
+    "rule_of_thirds": "motorcycle positioned in the right third of the frame, NOT centered, following rule of thirds for natural composition, with environmental elements on the left side",
+    "left_third": "motorcycle positioned in the left third of the frame, NOT centered, with environmental elements balancing the right side, motorcycle should be clearly off-center",
     "dynamic_angle": "motorcycle positioned off-center at dynamic angle, NOT in the middle, with surrounding elements creating visual balance",
-    "environmental": "motorcycle positioned off-center to allow environment to play equal role, NOT dominating the center of the frame",
-    "cinematic": "cinematic composition with motorcycle in foreground but NOT centered, positioned for visual interest and balance",
-    "lifestyle": "lifestyle photography composition, motorcycle naturally positioned off-center, NOT posed in the middle"
+    "environmental": "motorcycle positioned off-center to allow environment to play equal role, NOT dominating the center of the frame, avoid center positioning",
+    "cinematic": "cinematic composition with motorcycle in foreground but NOT centered, positioned for visual interest and balance, clearly off-center",
+    "lifestyle": "lifestyle photography composition, motorcycle naturally positioned off-center, NOT posed in the middle, avoid center of frame",
+    "side_positioned": "motorcycle positioned on the side of the road or path, NOT in the center, with environmental elements creating visual balance, avoid center positioning",
+    "center_focused": "motorcycle positioned in the center of the frame, classic composition with environmental elements in background",
+    "corner_positioned": "motorcycle positioned in one corner of the frame, creating dynamic composition with environmental elements",
+    "diagonal_composition": "motorcycle positioned diagonally across the frame, creating dynamic and interesting composition",
+    "foreground_background": "motorcycle in foreground with environmental elements in background, creating depth and context"
   },
   "CAMERA_DISTANCE": {
     "wide": "Wide angle shot from medium distance, showing full motorcycle with surrounding environment, allowing environmental elements to be visible",
