@@ -37,7 +37,7 @@ class randomPromptGenerator:
     def get_random_rider(self, img_count: int) -> str:
         """Obtiene un elemento de Rider aleatorio dependiendo del tipo de moto."""
         # print("La moto es de tipo: ", self.motorcycle_type)
-        print("img_count: ", img_count)
+        # print("img_count: ", img_count)
 
         # 30% de probabilidad de no tener conductor (aleatorio)
         if random.random() < 0.3:
@@ -73,21 +73,44 @@ class randomPromptGenerator:
             rider_key = random.choice(list(rider_dict.keys()))
             return rider_dict[rider_key]
 
-    def get_random_action(self) -> str:
+    def get_random_action(self, has_rider: bool = True) -> str:
         """Obtiene una acción aleatoria."""
-        # print("La moto es de tipo: ", self.motorcycle_type)
-        if self.motorcycle_type in self.motorcycles_offroad:
-            action_dict = self.config["ACTIONS"]["offroad"]
-            action_key = random.choice(list(action_dict.keys()))
-            return action_dict[action_key]
-        elif self.motorcycle_type in self.motorcycles_city:
-            action_dict = self.config["ACTIONS"]["default"]
+        if not has_rider:
+            # Sin conductor: usar acciones genéricas
+            action_dict = self.config["ACTIONS"]["without_rider"]
             action_key = random.choice(list(action_dict.keys()))
             return action_dict[action_key]
         else:
-            action_dict = self.config["ACTIONS"]["default"]
-            action_key = random.choice(list(action_dict.keys()))
-            return action_dict[action_key]
+            # Con conductor: usar acciones específicas por tipo
+            if self.motorcycle_type in self.motorcycles_offroad:
+                action_dict = self.config["ACTIONS"]["with_rider"]["offroad"]
+                action_key = random.choice(list(action_dict.keys()))
+                return action_dict[action_key]
+            elif self.motorcycle_type in self.motorcycles_city:
+                action_dict = self.config["ACTIONS"]["with_rider"]["city"]
+                action_key = random.choice(list(action_dict.keys()))
+                return action_dict[action_key]
+            elif self.motorcycle_type in self.motorcycles_sport:
+                action_dict = self.config["ACTIONS"]["with_rider"]["sport"]
+                action_key = random.choice(list(action_dict.keys()))
+                return action_dict[action_key]
+            elif self.motorcycle_type in self.motorcycles_tour:
+                action_dict = self.config["ACTIONS"]["with_rider"]["touring"]
+                action_key = random.choice(list(action_dict.keys()))
+                return action_dict[action_key]
+            elif self.motorcycle_type in self.motorcycles_transport:
+                action_dict = self.config["ACTIONS"]["with_rider"]["transport"]
+                action_key = random.choice(list(action_dict.keys()))
+                return action_dict[action_key]
+            elif self.motorcycle_type in self.motorcycles_transport_trimoto:
+                action_dict = self.config["ACTIONS"]["with_rider"]["transport_trimoto"]
+                action_key = random.choice(list(action_dict.keys()))
+                return action_dict[action_key]
+            else:
+                # Fallback: usar acciones de ciudad
+                action_dict = self.config["ACTIONS"]["with_rider"]["city"]
+                action_key = random.choice(list(action_dict.keys()))
+                return action_dict[action_key]
 
     def get_random_environment(self) -> str:
         """Obtiene un entorno aleatorio según el tipo de moto."""
@@ -142,62 +165,72 @@ class randomPromptGenerator:
         camera_distance_key = random.choice(list(self.config["CAMERA_DISTANCE"].keys()))
         return self.config["CAMERA_DISTANCE"][camera_distance_key]
 
-    def generate_variety_elements(self, num_elements: int = 2) -> List[str]:
-        """
-        Genera una lista de elementos aleatorios para añadir variedad.
+    # def generate_variety_elements(self, num_elements: int = 2) -> List[str]:
+    #     """
+    #     Genera una lista de elementos aleatorios para añadir variedad.
 
-        Args:
-            num_elements: Número de elementos aleatorios a generar
+    #     Args:
+    #         num_elements: Número de elementos aleatorios a generar
 
-        Returns:
-            Lista de elementos aleatorios
-        """
-        all_elements = []
+    #     Returns:
+    #         Lista de elementos aleatorios
+    #     """
+    #     all_elements = []
 
-        # Agregar elementos de variedad
-        all_elements.extend(self.config["VARIETY_ELEMENTS"]["weather"])
-        all_elements.extend(self.config["VARIETY_ELEMENTS"]["time"])
-        all_elements.extend(self.config["VARIETY_ELEMENTS"]["atmosphere"])
-        all_elements.extend(self.config["VARIETY_ELEMENTS"]["background_variety"])
+    #     # Agregar elementos de variedad
+    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["weather"])
+    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["time"])
+    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["atmosphere"])
+    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["background_variety"])
 
-        # Seleccionar elementos aleatorios sin repetir
-        selected = random.sample(all_elements, min(num_elements, len(all_elements)))
-        return selected
+    #     # Seleccionar elementos aleatorios sin repetir
+    #     selected = random.sample(all_elements, min(num_elements, len(all_elements)))
+    #     return selected
 
-    def add_variety_to_prompt(self, base_prompt: str, num_variety_elements: int = 2) -> str:
-        """
-        Añade elementos de variedad a un prompt base.
+    # def add_variety_to_prompt(self, base_prompt: str, num_variety_elements: int = 2) -> str:
+    #     """
+    #     Añade elementos de variedad a un prompt base.
 
-        Args:
-            base_prompt: Prompt base al que añadir variedad
-            num_variety_elements: Número de elementos de variedad a añadir
+    #     Args:
+    #         base_prompt: Prompt base al que añadir variedad
+    #         num_variety_elements: Número de elementos de variedad a añadir
 
-        Returns:
-            Prompt con elementos de variedad añadidos
-        """
-        variety_elements = self.generate_variety_elements(num_variety_elements)
+    #     Returns:
+    #         Prompt con elementos de variedad añadidos
+    #     """
+    #     variety_elements = self.generate_variety_elements(num_variety_elements)
 
-        # Añadir elementos de variedad al final del prompt
-        variety_text = ", ".join(variety_elements)
-        return f"{base_prompt}, {variety_text}"
+    #     # Añadir elementos de variedad al final del prompt
+    #     variety_text = ", ".join(variety_elements)
+    #     return f"{base_prompt}, {variety_text}"
 
-    def get_random_combination(self) -> Dict[str, str]:
-        """
-        Obtiene una combinación aleatoria de todos los elementos.
+    # def get_random_combination(self, img_count: int = 0) -> Dict[str, str]:
+    #     """
+    #     Obtiene una combinación aleatoria de todos los elementos.
 
-        Returns:
-            Diccionario con la combinación aleatoria
-        """
-        return {
-            "environment": self.get_random_environment(),
-            "lighting": self.get_random_lighting(),
-            "style_extra": self.get_random_style_extra(),
-            "composition": self.get_random_composition(),
-            "rider": self.get_random_rider(),
-            "weather": self.get_random_weather(),
-            "time": self.get_random_time(),
-            "atmosphere": self.get_random_atmosphere(),
-        }
+    #     Args:
+    #         img_count: Número de imagen para determinar si hay conductor
+
+    #     Returns:
+    #         Diccionario con la combinación aleatoria
+    #     """
+    #     rider = self.get_random_rider(img_count)
+    #     has_rider = bool(rider.strip())
+    #     print("Tiene conductor: ", has_rider)
+    #     print("Conductor: ", rider)
+    #     print("Acción: ", self.get_random_action(has_rider))
+
+    #     return {
+    #         "environment": self.get_random_environment(),
+    #         "lighting": self.get_random_lighting(),
+    #         "style_extra": self.get_random_style_extra(),
+    #         "composition": self.get_random_composition(),
+    #         "rider": rider,
+    #         "action": self.get_random_action(has_rider),
+    #         "weather": self.get_random_weather(),
+    #         "time": self.get_random_time(),
+    #         "atmosphere": self.get_random_atmosphere(),
+    #     }
 
 # Función helper para uso rápido
 def generate_random_prompt(
@@ -223,13 +256,20 @@ def generate_random_prompt(
     random_prompt_generator = randomPromptGenerator(motorcycle_type, prompts_config_path)
 
 
+    # Obtener conductor y determinar si hay conductor
+    rider = random_prompt_generator.get_random_rider(img_count)
+    has_rider = bool(rider.strip())
+    print("Tiene conductor: ", has_rider)
+    print("Conductor: ", rider)
+    print("Acción: ", random_prompt_generator.get_random_action(has_rider))
+
     # Generar prompt base
     base_prompt = PromptGenerator.build_motorcycle_prompt(
         model=model,
         city=city,
         environment= random_prompt_generator.get_random_environment(),
-        rider=random_prompt_generator.get_random_rider(img_count),
-        action=random_prompt_generator.get_random_action(),
+        rider=rider,
+        action=random_prompt_generator.get_random_action(has_rider),
         lighting_style=random_prompt_generator.get_random_lighting(),
         extras=random_prompt_generator.get_random_style_extra(),
         composition=random_prompt_generator.get_random_composition(),
