@@ -148,10 +148,18 @@ class randomPromptGenerator:
         light_key = random.choice(list(self.config["LIGHTING"].keys()))
         return self.config["LIGHTING"][light_key]
 
-    def get_random_style_extra(self) -> str:
-        """Obtiene un estilo extra aleatorio."""
-        style_key = random.choice(list(self.config["STYLE_EXTRAS"].keys()))
-        return self.config["STYLE_EXTRAS"][style_key]
+    def get_random_style_extra(self, has_rider: bool = True) -> str:
+        """Obtiene un estilo extra aleatorio basado en si hay conductor o no."""
+        if has_rider:
+            # Con conductor: usar estilos dinámicos
+            style_dict = self.config["STYLE_EXTRAS"]["dynamic"]
+            style_key = random.choice(list(style_dict.keys()))
+            return style_dict[style_key]
+        else:
+            # Sin conductor: usar estilos estáticos
+            style_dict = self.config["STYLE_EXTRAS"]["static"]
+            style_key = random.choice(list(style_dict.keys()))
+            return style_dict[style_key]
 
     def get_random_composition(self) -> str:
         """Obtiene una composición aleatoria."""
@@ -269,7 +277,7 @@ def generate_random_prompt(
         rider=rider,
         action=random_prompt_generator.get_random_action(has_rider),
         lighting_style=random_prompt_generator.get_random_lighting(),
-        extras=random_prompt_generator.get_random_style_extra(),
+        extras=random_prompt_generator.get_random_style_extra(has_rider),
         composition=random_prompt_generator.get_random_composition(),
         camera_distance=random_prompt_generator.get_random_camera_distance()
     )
