@@ -134,18 +134,18 @@
     }
   },
   "COMPOSITION": {
-    "rule_of_thirds": "positioned using rule of thirds, off-center composition for natural look",
-    "dynamic_angle": "positioned at dynamic angle, slightly off-center with movement feel",
-    "environmental": "environmental composition where motorcycle is prominent but not dominating, balanced with surroundings",
-    "cinematic": "cinematic composition with motorcycle in foreground, off-center positioning",
-    "lifestyle": "lifestyle photography composition, natural and unposed positioning",
-    "editorial": "editorial style composition, motorcycle positioned for visual interest and balance"
+    "rule_of_thirds": "motorcycle positioned in the right third of the frame, NOT centered, following rule of thirds for natural composition",
+    "left_third": "motorcycle positioned in the left third of the frame, NOT centered, with environmental elements balancing the right side",
+    "dynamic_angle": "motorcycle positioned off-center at dynamic angle, NOT in the middle, with surrounding elements creating visual balance",
+    "environmental": "motorcycle positioned off-center to allow environment to play equal role, NOT dominating the center of the frame",
+    "cinematic": "cinematic composition with motorcycle in foreground but NOT centered, positioned for visual interest and balance",
+    "lifestyle": "lifestyle photography composition, motorcycle naturally positioned off-center, NOT posed in the middle"
   },
   "CAMERA_DISTANCE": {
-    "wide": "Wide angle shot showing full motorcycle with surrounding environment",
-    "medium": "Medium distance shot with good balance between motorcycle and background",
-    "close": "Close distance shot emphasizing motorcycle details",
-    "standard": "Standard photography distance, professional composition"
+    "wide": "Wide angle shot from medium distance, showing full motorcycle with surrounding environment, allowing environmental elements to be visible",
+    "medium": "Medium distance shot with good balance between motorcycle and background, environmental elements clearly visible",
+    "close": "Close distance shot emphasizing motorcycle details while still showing environmental context",
+    "standard": "Standard photography distance, professional composition with environmental balance"
   },
   "VARIETY_ELEMENTS": {
     "weather": [
