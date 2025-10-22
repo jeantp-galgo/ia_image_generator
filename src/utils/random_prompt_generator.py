@@ -39,7 +39,9 @@ class randomPromptGenerator:
         # print("La moto es de tipo: ", self.motorcycle_type)
         print("img_count: ", img_count)
 
-        if img_count == 1:
+        # 30% de probabilidad de no tener conductor (aleatorio)
+        if random.random() < 0.3:
+            print("No hay conductor")
             return ""
 
         if self.motorcycle_type in self.motorcycles_city:
