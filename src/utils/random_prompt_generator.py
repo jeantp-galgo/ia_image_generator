@@ -34,209 +34,202 @@ class randomPromptGenerator:
         """Obtiene un elemento de variedad de fondo aleatorio."""
         return random.choice(self.config["VARIETY_ELEMENTS"]["background_variety"])
 
-    def get_random_rider(self, img_count: int) -> str:
-        """Obtiene un elemento de Rider aleatorio dependiendo del tipo de moto."""
+    def get_random_rider(self, img_count: int, avoid: str = None) -> str:
+        """Obtiene un elemento de Rider aleatorio dependiendo del tipo de moto, evitando el valor anterior."""
 
         # Si el contador de imágenes es mayor a 0.7, entonces retornará un conductor aleatorio
         if img_count >= 1:
             if random.random() > 0.4:
                 return ""
 
+        # Determinar el diccionario de riders según el tipo de moto
         if self.motorcycle_type in self.motorcycles_city:
             rider_dict = self.config["RIDERS"]["city"]
-            rider_key = random.choice(list(rider_dict.keys()))
-            return rider_dict[rider_key]
         elif self.motorcycle_type in self.motorcycles_offroad:
             rider_dict = self.config["RIDERS"]["offroad"]
-            rider_key = random.choice(list(rider_dict.keys()))
-            return rider_dict[rider_key]
         elif self.motorcycle_type in self.motorcycles_sport:
             rider_dict = self.config["RIDERS"]["sport"]
-            rider_key = random.choice(list(rider_dict.keys()))
-            return rider_dict[rider_key]
         elif self.motorcycle_type in self.motorcycles_tour:
             rider_dict = self.config["RIDERS"]["touring"]
-            rider_key = random.choice(list(rider_dict.keys()))
-            return rider_dict[rider_key]
         elif self.motorcycle_type in self.motorcycles_transport:
             rider_dict = self.config["RIDERS"]["transport"]
-            rider_key = random.choice(list(rider_dict.keys()))
-            return rider_dict[rider_key]
         elif self.motorcycle_type in self.motorcycles_transport_trimoto:
             rider_dict = self.config["RIDERS"]["transport_trimoto"]
-            rider_key = random.choice(list(rider_dict.keys()))
-            return rider_dict[rider_key]
         else:
             rider_dict = self.config["RIDERS"]["default"]
-            rider_key = random.choice(list(rider_dict.keys()))
-            return rider_dict[rider_key]
 
-    def get_random_action(self, has_rider: bool = True) -> str:
-        """Obtiene una acción aleatoria."""
+        # Filtrar el valor a evitar si existe
+        available_keys = list(rider_dict.keys())
+        if avoid and avoid in rider_dict.values():
+            # Encontrar la clave que corresponde al valor a evitar
+            for key, value in rider_dict.items():
+                if value == avoid:
+                    available_keys.remove(key)
+                    break
+
+        # Si no hay opciones disponibles, usar todas
+        if not available_keys:
+            available_keys = list(rider_dict.keys())
+
+        rider_key = random.choice(available_keys)
+        return rider_dict[rider_key]
+
+    def get_random_action(self, has_rider: bool = True, avoid: str = None) -> str:
+        """Obtiene una acción aleatoria, evitando el valor anterior."""
         if not has_rider:
             # Sin conductor: usar acciones genéricas
             action_dict = self.config["ACTIONS"]["without_rider"]
-            action_key = random.choice(list(action_dict.keys()))
-            return action_dict[action_key]
         else:
             # Con conductor: usar acciones específicas por tipo
             if self.motorcycle_type in self.motorcycles_offroad:
                 action_dict = self.config["ACTIONS"]["with_rider"]["offroad"]
-                action_key = random.choice(list(action_dict.keys()))
-                return action_dict[action_key]
             elif self.motorcycle_type in self.motorcycles_city:
                 action_dict = self.config["ACTIONS"]["with_rider"]["city"]
-                action_key = random.choice(list(action_dict.keys()))
-                return action_dict[action_key]
             elif self.motorcycle_type in self.motorcycles_sport:
                 action_dict = self.config["ACTIONS"]["with_rider"]["sport"]
-                action_key = random.choice(list(action_dict.keys()))
-                return action_dict[action_key]
             elif self.motorcycle_type in self.motorcycles_tour:
                 action_dict = self.config["ACTIONS"]["with_rider"]["touring"]
-                action_key = random.choice(list(action_dict.keys()))
-                return action_dict[action_key]
             elif self.motorcycle_type in self.motorcycles_transport:
                 action_dict = self.config["ACTIONS"]["with_rider"]["transport"]
-                action_key = random.choice(list(action_dict.keys()))
-                return action_dict[action_key]
             elif self.motorcycle_type in self.motorcycles_transport_trimoto:
                 action_dict = self.config["ACTIONS"]["with_rider"]["transport_trimoto"]
-                action_key = random.choice(list(action_dict.keys()))
-                return action_dict[action_key]
             else:
                 # Fallback: usar acciones de ciudad
                 action_dict = self.config["ACTIONS"]["with_rider"]["city"]
-                action_key = random.choice(list(action_dict.keys()))
-                return action_dict[action_key]
 
-    def get_random_environment(self) -> str:
-        """Obtiene un entorno aleatorio según el tipo de moto."""
+        # Filtrar el valor a evitar si existe
+        available_keys = list(action_dict.keys())
+        if avoid and avoid in action_dict.values():
+            # Encontrar la clave que corresponde al valor a evitar
+            for key, value in action_dict.items():
+                if value == avoid:
+                    available_keys.remove(key)
+                    break
+
+        # Si no hay opciones disponibles, usar todas
+        if not available_keys:
+            available_keys = list(action_dict.keys())
+
+        action_key = random.choice(available_keys)
+        return action_dict[action_key]
+
+    def get_random_environment(self, avoid: str = None) -> str:
+        """Obtiene un entorno aleatorio según el tipo de moto, evitando el valor anterior."""
         # print("La moto es de tipo: ", self.motorcycle_type)
         if self.motorcycle_type in self.motorcycles_offroad:
             env_dict = self.config["ENVIRONMENTS"]["offroad"]
-            env_key = random.choice(list(env_dict.keys()))
-            return env_dict[env_key]
         elif self.motorcycle_type in self.motorcycles_city:
             env_dict = self.config["ENVIRONMENTS"]["city"]
-            env_key = random.choice(list(env_dict.keys()))
-            return env_dict[env_key]
         elif self.motorcycle_type in self.motorcycles_sport:
             env_dict = self.config["ENVIRONMENTS"]["sport"]
-            env_key = random.choice(list(env_dict.keys()))
-            return env_dict[env_key]
         elif self.motorcycle_type in self.motorcycles_tour:
             env_dict = self.config["ENVIRONMENTS"]["touring"]
-            env_key = random.choice(list(env_dict.keys()))
-            return env_dict[env_key]
         elif self.motorcycle_type in self.motorcycles_transport:
             env_dict = self.config["ENVIRONMENTS"]["transport"]
-            env_key = random.choice(list(env_dict.keys()))
-            return env_dict[env_key]
         elif self.motorcycle_type in self.motorcycles_transport_trimoto:
             env_dict = self.config["ENVIRONMENTS"]["transport_trimoto"]
-            env_key = random.choice(list(env_dict.keys()))
-            return env_dict[env_key]
         else:
             # Fallback: usar entorno de ciudad por defecto
             env_dict = self.config["ENVIRONMENTS"]["city"]
-            env_key = random.choice(list(env_dict.keys()))
-            return env_dict[env_key]
 
-    def get_random_lighting(self) -> str:
-        """Obtiene una iluminación aleatoria."""
-        light_key = random.choice(list(self.config["LIGHTING"].keys()))
+        # Filtrar el valor a evitar si existe
+        available_keys = list(env_dict.keys())
+        if avoid and avoid in env_dict.values():
+            # Encontrar la clave que corresponde al valor a evitar
+            for key, value in env_dict.items():
+                if value == avoid:
+                    available_keys.remove(key)
+                    break
+
+        # Si no hay opciones disponibles, usar todas
+        if not available_keys:
+            available_keys = list(env_dict.keys())
+
+        env_key = random.choice(available_keys)
+        return env_dict[env_key]
+
+    def get_random_lighting(self, avoid: str = None) -> str:
+        """Obtiene una iluminación aleatoria, evitando el valor anterior."""
+        available_keys = list(self.config["LIGHTING"].keys())
+
+        # Filtrar el valor a evitar si existe
+        if avoid and avoid in self.config["LIGHTING"].values():
+            # Encontrar la clave que corresponde al valor a evitar
+            for key, value in self.config["LIGHTING"].items():
+                if value == avoid:
+                    available_keys.remove(key)
+                    break
+
+        # Si no hay opciones disponibles, usar todas
+        if not available_keys:
+            available_keys = list(self.config["LIGHTING"].keys())
+
+        light_key = random.choice(available_keys)
         return self.config["LIGHTING"][light_key]
 
-    def get_random_style_extra(self, has_rider: bool = True) -> str:
-        """Obtiene un estilo extra aleatorio basado en si hay conductor o no."""
+    def get_random_style_extra(self, has_rider: bool = True, avoid: str = None) -> str:
+        """Obtiene un estilo extra aleatorio basado en si hay conductor o no, evitando el valor anterior."""
         if has_rider:
             # Con conductor: usar estilos dinámicos
             style_dict = self.config["STYLE_EXTRAS"]["dynamic"]
-            style_key = random.choice(list(style_dict.keys()))
-            return style_dict[style_key]
         else:
             # Sin conductor: usar estilos estáticos
             style_dict = self.config["STYLE_EXTRAS"]["static"]
-            style_key = random.choice(list(style_dict.keys()))
-            return style_dict[style_key]
 
-    def get_random_composition(self) -> str:
-        """Obtiene una composición aleatoria."""
-        comp_key = random.choice(list(self.config["COMPOSITION"].keys()))
+        available_keys = list(style_dict.keys())
+
+        # Filtrar el valor a evitar si existe
+        if avoid and avoid in style_dict.values():
+            # Encontrar la clave que corresponde al valor a evitar
+            for key, value in style_dict.items():
+                if value == avoid:
+                    available_keys.remove(key)
+                    break
+
+        # Si no hay opciones disponibles, usar todas
+        if not available_keys:
+            available_keys = list(style_dict.keys())
+
+        style_key = random.choice(available_keys)
+        return style_dict[style_key]
+
+    def get_random_composition(self, avoid: str = None) -> str:
+        """Obtiene una composición aleatoria, evitando el valor anterior."""
+        available_keys = list(self.config["COMPOSITION"].keys())
+
+        # Filtrar el valor a evitar si existe
+        if avoid and avoid in self.config["COMPOSITION"].values():
+            # Encontrar la clave que corresponde al valor a evitar
+            for key, value in self.config["COMPOSITION"].items():
+                if value == avoid:
+                    available_keys.remove(key)
+                    break
+
+        # Si no hay opciones disponibles, usar todas
+        if not available_keys:
+            available_keys = list(self.config["COMPOSITION"].keys())
+
+        comp_key = random.choice(available_keys)
         return self.config["COMPOSITION"][comp_key]
 
-    def get_random_camera_distance(self) -> str:
-        """Obtiene una distancia de cámara aleatoria."""
-        camera_distance_key = random.choice(list(self.config["CAMERA_DISTANCE"].keys()))
+    def get_random_camera_distance(self, avoid: str = None) -> str:
+        """Obtiene una distancia de cámara aleatoria, evitando el valor anterior."""
+        available_keys = list(self.config["CAMERA_DISTANCE"].keys())
+
+        # Filtrar el valor a evitar si existe
+        if avoid and avoid in self.config["CAMERA_DISTANCE"].values():
+            # Encontrar la clave que corresponde al valor a evitar
+            for key, value in self.config["CAMERA_DISTANCE"].items():
+                if value == avoid:
+                    available_keys.remove(key)
+                    break
+
+        # Si no hay opciones disponibles, usar todas
+        if not available_keys:
+            available_keys = list(self.config["CAMERA_DISTANCE"].keys())
+
+        camera_distance_key = random.choice(available_keys)
         return self.config["CAMERA_DISTANCE"][camera_distance_key]
-
-    # def generate_variety_elements(self, num_elements: int = 2) -> List[str]:
-    #     """
-    #     Genera una lista de elementos aleatorios para añadir variedad.
-
-    #     Args:
-    #         num_elements: Número de elementos aleatorios a generar
-
-    #     Returns:
-    #         Lista de elementos aleatorios
-    #     """
-    #     all_elements = []
-
-    #     # Agregar elementos de variedad
-    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["weather"])
-    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["time"])
-    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["atmosphere"])
-    #     all_elements.extend(self.config["VARIETY_ELEMENTS"]["background_variety"])
-
-    #     # Seleccionar elementos aleatorios sin repetir
-    #     selected = random.sample(all_elements, min(num_elements, len(all_elements)))
-    #     return selected
-
-    # def add_variety_to_prompt(self, base_prompt: str, num_variety_elements: int = 2) -> str:
-    #     """
-    #     Añade elementos de variedad a un prompt base.
-
-    #     Args:
-    #         base_prompt: Prompt base al que añadir variedad
-    #         num_variety_elements: Número de elementos de variedad a añadir
-
-    #     Returns:
-    #         Prompt con elementos de variedad añadidos
-    #     """
-    #     variety_elements = self.generate_variety_elements(num_variety_elements)
-
-    #     # Añadir elementos de variedad al final del prompt
-    #     variety_text = ", ".join(variety_elements)
-    #     return f"{base_prompt}, {variety_text}"
-
-    # def get_random_combination(self, img_count: int = 0) -> Dict[str, str]:
-    #     """
-    #     Obtiene una combinación aleatoria de todos los elementos.
-
-    #     Args:
-    #         img_count: Número de imagen para determinar si hay conductor
-
-    #     Returns:
-    #         Diccionario con la combinación aleatoria
-    #     """
-    #     rider = self.get_random_rider(img_count)
-    #     has_rider = bool(rider.strip())
-    #     print("Tiene conductor: ", has_rider)
-    #     print("Conductor: ", rider)
-    #     print("Acción: ", self.get_random_action(has_rider))
-
-    #     return {
-    #         "environment": self.get_random_environment(),
-    #         "lighting": self.get_random_lighting(),
-    #         "style_extra": self.get_random_style_extra(),
-    #         "composition": self.get_random_composition(),
-    #         "rider": rider,
-    #         "action": self.get_random_action(has_rider),
-    #         "weather": self.get_random_weather(),
-    #         "time": self.get_random_time(),
-    #         "atmosphere": self.get_random_atmosphere(),
-    #     }
 
 # Función helper para uso rápido
 def generate_random_prompt(
@@ -260,28 +253,60 @@ def generate_random_prompt(
         Prompt aleatorio para una motocicleta
     """
     from src.processors.prompt_generator import PromptGenerator
-
+    from src.utils.temp_prompt import TempPrompt
     random_prompt_generator = randomPromptGenerator(motorcycle_type, prompts_config_path)
 
-
-    # Obtener conductor y determinar si hay conductor
-    rider = random_prompt_generator.get_random_rider(img_count)
-    has_rider = bool(rider.strip())
-    print("Tiene conductor: ", has_rider)
+    # Cargar prompt temporal anterior para evitar repeticiones
+    temp_prompt_info = TempPrompt.load_temp_prompt(model)
+    if not temp_prompt_info:
+        print(f"No se encontró el prompt temporal para {model} - Generando completamente aleatorio")
+        # Si no hay prompt anterior, generar completamente aleatorio
+        environment = random_prompt_generator.get_random_environment()
+        rider = random_prompt_generator.get_random_rider(img_count)
+        has_rider = bool(rider.strip())
+        action = random_prompt_generator.get_random_action(has_rider)
+        lighting_style = random_prompt_generator.get_random_lighting()
+        extras = random_prompt_generator.get_random_style_extra(has_rider)
+        composition = random_prompt_generator.get_random_composition()
+        camera_distance = random_prompt_generator.get_random_camera_distance()
+    else:
+        print(f"Prompt temporal encontrado para {model} - Evitando repeticiones")
+        # Usar valores anteriores para evitar repeticiones
+        environment = random_prompt_generator.get_random_environment(avoid=temp_prompt_info.get("environment"))
+        rider = random_prompt_generator.get_random_rider(img_count, avoid=temp_prompt_info.get("rider"))
+        has_rider = bool(rider.strip())
+        action = random_prompt_generator.get_random_action(has_rider, avoid=temp_prompt_info.get("action"))
+        lighting_style = random_prompt_generator.get_random_lighting(avoid=temp_prompt_info.get("lighting_style"))
+        extras = random_prompt_generator.get_random_style_extra(has_rider, avoid=temp_prompt_info.get("extras"))
+        composition = random_prompt_generator.get_random_composition(avoid=temp_prompt_info.get("composition"))
+        camera_distance = random_prompt_generator.get_random_camera_distance(avoid=temp_prompt_info.get("camera_distance"))
 
     # Generar prompt base
-    base_prompt = PromptGenerator.build_motorcycle_prompt(
+    prompt_generator = PromptGenerator(
         model=model,
         city=city,
-        environment= random_prompt_generator.get_random_environment(),
+        environment= environment,
         rider=rider,
-        action=random_prompt_generator.get_random_action(has_rider),
-        lighting_style=random_prompt_generator.get_random_lighting(),
-        extras=random_prompt_generator.get_random_style_extra(has_rider),
-        composition=random_prompt_generator.get_random_composition(),
-        camera_distance=random_prompt_generator.get_random_camera_distance()
+        action=action,
+        lighting_style=lighting_style,
+        extras=extras,
+        composition=composition,
+        camera_distance=camera_distance
     )
+    # Generar prompt
+    base_prompt = prompt_generator.build_motorcycle_prompt()
 
-    # Añadir variedad
-    # return random_prompt_generator.add_variety_to_prompt(base_prompt, variety_elements)
+    prompt_info = {
+        "model": model,
+        "city": city,
+        "environment": environment,
+        "rider": rider,
+        "action": action,
+        "lighting_style": lighting_style,
+        "extras": extras,
+        "composition": composition,
+        "camera_distance": camera_distance
+    }
+    TempPrompt.save_temp_prompt(prompt_info)
+
     return base_prompt
