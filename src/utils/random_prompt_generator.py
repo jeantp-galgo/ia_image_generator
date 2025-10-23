@@ -38,8 +38,8 @@ class randomPromptGenerator:
         """Obtiene un elemento de Rider aleatorio dependiendo del tipo de moto, evitando el valor anterior."""
 
         # Si el contador de imágenes es mayor a 0.7, entonces retornará un conductor aleatorio
-        if img_count >= 1:
-            if random.random() > 0.4:
+        if img_count == 1:
+            if random.random() > 0.1:
                 return ""
 
         # Determinar el diccionario de riders según el tipo de moto
