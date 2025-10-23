@@ -251,8 +251,10 @@ def generate_random_prompt(
 
     Args:
         motorcycle_type: Tipo de motocicleta
-        model: Modelo de la motocicleta
-        rider_block: Descripción del conductor
+        city: Ciudad donde se generará la imagen
+        model: Marca y modelo de la motocicleta
+        img_count: Número de imagen para determinar si hay conductor
+        prompts_config_path: Ruta de los prompts predefinidos
 
     Returns:
         Prompt aleatorio para una motocicleta
@@ -266,8 +268,6 @@ def generate_random_prompt(
     rider = random_prompt_generator.get_random_rider(img_count)
     has_rider = bool(rider.strip())
     print("Tiene conductor: ", has_rider)
-    print("Conductor: ", rider)
-    print("Acción: ", random_prompt_generator.get_random_action(has_rider))
 
     # Generar prompt base
     base_prompt = PromptGenerator.build_motorcycle_prompt(
