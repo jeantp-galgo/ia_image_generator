@@ -14,32 +14,31 @@ class PromptGenerator:
     ) -> str:
         """
         Estructura:
-        1) Tipo de imagen y objetivo
-        2) Descripción del modelo
-        3) Entorno y ambientación con ciudad
+        1) Tipo de imagen y objetivo (marca, modelo, forma original)
+        2) Entorno y ambientación con ciudad
+        3) Conductor (si existe)
         4) Acción (debe ser coherente con la presencia/ausencia de conductor)
-        5) Conductor (si existe)
-        6) Composición y distancia de cámara
-        7) Estilo fotográfico (iluminación)
-        8) Extras
+        5) Composición y distancia de cámara
+        6) Estilo fotográfico (iluminación)
+        7) Extras
         """
         parts = [
-            # 1) Tipo de imagen y objetivo
+            # 1) Tipo de imagen y objetivo (marca, modelo, forma original)
             f"Professional realistic photograph of a {model} motorcycle",
-            # 2) Descripción del modelo
             "keeping its original shape and design.",
-            # 3) Entorno y ambientación con ciudad
+            # 2) Entorno y ambientación con ciudad
             environment.strip(),
             f"in {city.strip()}" if city.strip() else "",
+            # 3) Conductor (si existe)
+            rider.strip() if rider else "",
             # 4) Acción (debe ser coherente con la presencia/ausencia de conductor)
             action.strip(),
-            # 5) Conductor (si existe)
-            rider.strip() if rider else "",
-            # 6) Composición y distancia de cámara
+            # 5) Composición y distancia de cámara
             composition.strip() if composition else "positioned using rule of thirds, off-center composition for natural look",
             camera_distance.strip() if camera_distance else "medium distance shot",
-            # 7) Estilo fotográfico
+            # 6) Estilo fotográfico (iluminación)
             lighting_style.strip() if lighting_style else "",
+            # 7) Extras
             extras.strip() if extras else "",
         ]
         # Une y limpia espacios dobles
