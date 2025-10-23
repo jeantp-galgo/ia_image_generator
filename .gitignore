@@ -106,5 +106,5 @@ ehthumbs.db
 src/data/img/*
 
 src/notebooks/test/*
-src/data/trash/*
+src/trash/*
 src/data/temp/*
