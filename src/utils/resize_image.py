@@ -1,10 +1,6 @@
 import os
 from PIL import Image
 
-"""
-CARROS USADOS
-"""
-
 class ResizeImage:
     @staticmethod
     def resize_and_crop_transparent(image_path, output_path, target_width, target_height):
