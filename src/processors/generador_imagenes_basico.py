@@ -27,25 +27,33 @@ class GeneradorImagenes:
         self.client = replicate.Client(api_token=self.api_token)
 
 
-    def descargar_imagen(self, url: str, ruta_destino: str) -> str:
+    def descargar_imagen(self, url: str, ruta_destino: str, nombre_archivo: str, nombre_carpeta: str) -> str:
         """
-        Descarga una imagen desde URL y la guarda localmente.
+        Descarga una imagen desde URL y la guarda localmente en la carpeta especificada.
 
         Args:
             url: URL de la imagen
             ruta_destino: Ruta donde guardar la imagen
-
+            nombre_archivo: Nombre del archivo
+            nombre_carpeta: Nombre de la carpeta
         Returns:
             Ruta del archivo descargado
         """
         try:
+            # Crear la carpeta dentro de ruta_destino con el nombre proporcionado
+            carpeta_completa = os.path.join(ruta_destino, nombre_carpeta)
+            os.makedirs(carpeta_completa, exist_ok=True)
+
             response = requests.get(url, timeout=60)
             response.raise_for_status()
 
-            with open(ruta_destino, 'wb') as f:
+            print("nombre archivo: ", nombre_archivo)
+
+            ruta_archivo = os.path.join(carpeta_completa, nombre_archivo)
+            with open(ruta_archivo, 'wb') as f:
                 f.write(response.content)
 
-            return ruta_destino
+            return ruta_archivo
 
         except Exception as e:
             raise RuntimeError(f"Error descargando imagen: {e}")
@@ -118,6 +126,8 @@ class GeneradorImagenes:
                            prompt: str,
                            imagen_referencia: str,
                            ruta_destino: str,
+                           nombre_archivo: str,
+                           nombre_carpeta: str,
                            aspect_ratio: str = "4:3",
                            output_format: str = "png") -> str:
         """
@@ -127,6 +137,8 @@ class GeneradorImagenes:
             prompt: Descripción de la imagen
             imagen_referencia: Ruta o URL de imagen de referencia
             ruta_destino: Ruta donde guardar la imagen generada
+            nombre_archivo: Nombre del archivo
+            nombre_carpeta: Nombre de la carpeta
             aspect_ratio: Proporción de la imagen
             output_format: Formato de salida
 
@@ -138,7 +150,7 @@ class GeneradorImagenes:
 
         # Descargar imagen
         print(f"📥 Descargando imagen a: {ruta_destino}")
-        ruta_final = self.descargar_imagen(url_imagen, ruta_destino)
+        ruta_final = self.descargar_imagen(url_imagen, ruta_destino, nombre_archivo, nombre_carpeta)
 
         print(f"✅ Imagen guardada en: {ruta_final}")
         return ruta_final
@@ -147,7 +159,9 @@ class GeneradorImagenes:
 def generar_imagen_con_referencia(modelo: Optional[str],
                                   prompt: str,
                                   imagen_referencia: str,
-                                  ruta_destino: Optional[str]) -> str:
+                                  ruta_destino: Optional[str],
+                                  nombre_archivo: Optional[str],
+                                  nombre_carpeta: Optional[str]) -> str:
     """
     Genera una imagen rápidamente.
 
@@ -163,6 +177,6 @@ def generar_imagen_con_referencia(modelo: Optional[str],
     generador = GeneradorImagenes(modelo)
 
     if ruta_destino:
-        return generador.generar_y_descargar(prompt, imagen_referencia, ruta_destino)
+        return generador.generar_y_descargar(prompt, imagen_referencia, ruta_destino, nombre_archivo, nombre_carpeta)
     else:
         return generador.generar_imagen(prompt, imagen_referencia)
