@@ -259,7 +259,7 @@ def generate_random_prompt(
     # Cargar prompt temporal anterior para evitar repeticiones
     temp_prompt_info = TempPrompt.load_temp_prompt(model)
     if not temp_prompt_info:
-        print(f"No se encontró el prompt temporal para {model} - Generando completamente aleatorio")
+        # print(f"No se encontró el prompt temporal para {model} - Generando completamente aleatorio")
         # Si no hay prompt anterior, generar completamente aleatorio
         environment = random_prompt_generator.get_random_environment()
         rider = random_prompt_generator.get_random_rider(img_count)
@@ -270,7 +270,7 @@ def generate_random_prompt(
         composition = random_prompt_generator.get_random_composition()
         camera_distance = random_prompt_generator.get_random_camera_distance()
     else:
-        print(f"Prompt temporal encontrado para {model} - Evitando repeticiones")
+        # print(f"Prompt temporal encontrado para {model} - Evitando repeticiones")
         # Usar valores anteriores para evitar repeticiones
         environment = random_prompt_generator.get_random_environment(avoid=temp_prompt_info.get("environment"))
         rider = random_prompt_generator.get_random_rider(img_count, avoid=temp_prompt_info.get("rider"))
@@ -308,5 +308,8 @@ def generate_random_prompt(
         "camera_distance": camera_distance
     }
     TempPrompt.save_temp_prompt(prompt_info)
+
+    if img_count == 2:
+        TempPrompt.delete_temp_prompt(model)
 
     return base_prompt
